@@ -77,7 +77,7 @@ public class HexTest {
 
         String origin = "123456";
         String key = "123456";
-        System.out.println("mac md5: "+ XDigest.hmacHex(origin,"",HmacType.HmacMD5));
+        System.out.println("mac md5: "+ XDigest.hmacHex(origin,"123456",HmacType.HmacMD5));
         System.out.println("mac md5: "+ XDigest.hmacHex(origin,key,HmacType.HmacMD5));
         System.out.println("mac sha1: "+ XDigest.hmacHex(origin,key,HmacType.HmacSHA1));
         System.out.println("mac sha256: "+ XDigest.hmacHex(origin,key,HmacType.HmacSHA256));

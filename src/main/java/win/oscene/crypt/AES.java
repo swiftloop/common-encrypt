@@ -23,15 +23,15 @@ public class AES {
 
 
     /**
-     * * <ul>
-     * * <li><tt>AES/CBC/NoPadding</tt> (128)</li>
-     * * <li><tt>AES/CBC/PKCS5Padding</tt> (128)</li>
-     * * <li><tt>AES/ECB/NoPadding</tt> (128)</li>
-     * * <li><tt>AES/ECB/PKCS5Padding</tt> (128)</li>
-     *
-     * @param str
-     * @param key
-     * @return
+     * 使用AES/ECB/PKCS5Padding 填充模式
+     * @param str 原字符串
+     * @param key 密钥
+     * @return 加密数据
+     * @throws NoSuchPaddingException NoSuchPaddingException
+     * @throws NoSuchAlgorithmException NoSuchAlgorithmException
+     * @throws InvalidKeyException InvalidKeyException
+     * @throws BadPaddingException BadPaddingException
+     * @throws IllegalBlockSizeException IllegalBlockSizeException
      */
     public static byte[] encode(final byte[] str, final byte[] key) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
@@ -43,8 +43,17 @@ public class AES {
     }
 
 
-
-
+    /**
+     * 解密
+     * @param str 密文
+     * @param key 密钥
+     * @return 原字符
+     * @throws NoSuchPaddingException NoSuchPaddingException
+     * @throws NoSuchAlgorithmException NoSuchAlgorithmException
+     * @throws InvalidKeyException InvalidKeyException
+     * @throws BadPaddingException BadPaddingException
+     * @throws IllegalBlockSizeException IllegalBlockSizeException
+     */
     public static byte[] decode(final byte[] str, final byte[] key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
         SecretKeySpec keySpec = new SecretKeySpec(key, Algorithm);

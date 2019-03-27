@@ -30,15 +30,18 @@ public class HexUtil {
 
 
     /**
+     *
+     * <p>
      *  一个字节 0XFF
      *  |高位  低位|
      *  |1111 1111|
-     *  字节数组转char，取高位 & 0XF0 即 1111 0000 将低位置为0000再
-     *  将其右移 >>> 4 抹去低位 留高位 ，然后用该字节 & 0X0F 即 0000 1111 将高位置0 留低位
+     *  字节数组转char,取高位与0XF0 即 1111 0000 将低位置为0000再
+     *  将其右移4抹去低位留高位 ,然后用该字节与0X0F 即 0000 1111 将高位置0留低位
      *  此时 将一个字节拆成了 1111 和 1111 两个整形
-     *
+     * </p>
      * @param bytes 需要转化的字节数组
-     * @return char
+     * @param transform 转换的字典
+     * @return char char 数组
      */
     public static char[] toChars(final byte[] bytes, final char[] transform){
         if (bytes == null || bytes.length == 0){
@@ -55,8 +58,10 @@ public class HexUtil {
 
 
     /**
-     * 取两个字符串 这两个是encode时将一个字节拆分出来的，此时 将两个字节 前面的是高位  高位左移 4 将其升为高位再
+     * <p>
+     * 取两个字符串 这两个是encode时将一个字节拆分出来的此时将两个字节前面的是高位将高位左移4将其升为高位再
      * 或 |  一个低位 即将低位合并
+     * </p>
      * @param chars 字节数组转化过来的 char数组
      * @return 字节数组
      */
