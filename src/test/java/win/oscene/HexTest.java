@@ -11,6 +11,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -31,24 +32,24 @@ public class HexTest {
 
         System.out.println(HexUtil.encodeNormal(HMac.encode("123456","123456", Charset.forName("UTF-8"), HmacType.HmacSHA256)));
 
-        System.out.println(HexUtil.encodeNormal(AES.encode("123456".getBytes("UTF-8"),"9f13ec2c5d3aacc9e5292648b0f9f1c1".getBytes("UTf-8"))));
-        System.out.println(new String(AES.decode(HexUtil.decode("33b0d0b8d05d9b9762b2eff0d3942b03"),"9f13ec2c5d3aacc9e5292648b0f9f1c1".getBytes("UTF-8"))));
+        System.out.println(HexUtil.encodeNormal(AES.encode("123456".getBytes(StandardCharsets.UTF_8),"9f13ec2c5d3aacc9e5292648b0f9f1c1".getBytes(StandardCharsets.UTF_8))));
+        System.out.println(new String(AES.decode(HexUtil.decode("33b0d0b8d05d9b9762b2eff0d3942b03"),"9f13ec2c5d3aacc9e5292648b0f9f1c1".getBytes(StandardCharsets.UTF_8))));
 
     }
 
     @Test
-    public void aesTest() throws NoSuchAlgorithmException, UnsupportedEncodingException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+    public void aesTest() throws Exception {
 
         String origin = "123456";
-        String key = HexUtil.encodeNormal(KeyFactory.createAesKey());
+        String key = HexUtil.encodeNormal(KeyFactory.createAesKey(128));
         System.out.println("AES测试开始  待加密的字符串为:" + origin  + "  生成的密钥为:"+ key);
-        String encodeStr = HexUtil.encodeNormal(AES.encode(origin.getBytes("UTF-8"),HexUtil.decode(key)));
+        String encodeStr = HexUtil.encodeNormal(AES.encode(origin.getBytes(StandardCharsets.UTF_8),HexUtil.decode(key)));
         System.out.println("加密后的字符串为：" + encodeStr);
         String decodeStr = new String(AES.decode(HexUtil.decode(encodeStr),HexUtil.decode(key)));
         System.out.println("解密后与原字符串是否相等："+ origin.equals(decodeStr));
 
         //  convet encode | decode
-        String keyBase64 = Base64.encode(KeyFactory.createAesKey());
+        String keyBase64 = Base64.encode(KeyFactory.createAesKey(128));
         String encodeHex = XDigest.aesEncodeHex(origin,keyBase64);
         Assert.assertEquals(XDigest.aesDecodeHex(encodeHex,keyBase64),origin);
         //  base64 encode | decode
@@ -86,8 +87,8 @@ public class HexTest {
     }
 
     @Test
-    public void keyfactory() throws NoSuchAlgorithmException {
-        System.out.println(HexUtil.encodeNormal(KeyFactory.createAesKey()));
+    public void keyfactory() throws Exception {
+        System.out.println(HexUtil.encodeNormal(KeyFactory.createAesKey(128)));
         System.out.println(KeyFactory.createRandomKey(42,true));
         System.out.println(KeyFactory.createRandomKey(64,false));
     }

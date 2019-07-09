@@ -38,8 +38,7 @@ public class AES {
         SecretKeySpec keySpec = new SecretKeySpec(key, Algorithm);
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, keySpec);
-        cipher.update(str);
-        return cipher.doFinal();
+        return cipher.doFinal(str);
     }
 
 
@@ -55,14 +54,10 @@ public class AES {
      * @throws IllegalBlockSizeException IllegalBlockSizeException
      */
     public static byte[] decode(final byte[] str, final byte[] key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-
         SecretKeySpec keySpec = new SecretKeySpec(key, Algorithm);
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, keySpec);
-        cipher.update(str);
-        return cipher.doFinal();
-
-
+        return cipher.doFinal(str);
     }
 
 

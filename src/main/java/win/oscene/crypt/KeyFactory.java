@@ -23,13 +23,16 @@ public class KeyFactory {
     private static final String FLAGS = "!@#$%^&*()_+=-~|?><,.;";
 
     /**
-     * 该填充模式 AES/ECB/PKCS5Padding 需要128位的密钥
+     * 该填充模式 AES/ECB/PKCS5Padding 需要128位的密钥    192 256 ECB  需要下载相应jdk的文件
      * @return byte[]
      * @throws NoSuchAlgorithmException 未找到加密的方式
      */
-    public static byte[] createAesKey() throws NoSuchAlgorithmException {
+    public static byte[] createAesKey(int bit) throws Exception {
+        if (bit != 128 && bit != 192 && bit !=256){
+            throw new IllegalArgumentException("key的长度必须是 128 192 或256");
+        }
         KeyGenerator aes = KeyGenerator.getInstance("AES");
-        aes.init(128);
+        aes.init(bit);
         SecretKey secretKey = aes.generateKey();
         return secretKey.getEncoded();
     }
